@@ -1,24 +1,9 @@
 import React from "react";
 import { Link, NavLink } from "react-router-dom";
 import Select from "react-select"
-import {useCountryContext} from '../../contexts/SelectionContext'
+import { Dropdown } from "flowbite-react";
+
 export default function Header() {
-    const options = [
-        { value: "in", label: "India" },
-        { value: "ae", label: "United Arab Emirates" },
-        { value: "ar", label: "Argentina" },
-        { value: "au", label: "Australia" },
-        { value: "de", label: "Germany" },
-        { value: "eg", label: "Egypt" },
-        { value: "jp", label: "Japan" },
-        { value: "mx", label: "Mexico" },
-
-      ]
-    const { selectedCountry, setSelectedCountry } = useCountryContext();
-    const handleChange = (selectedOption) => {
-        setSelectedCountry(selectedOption.value); // Update the selected country
-      };
-
     return (
         <>
         <header className="shadow sticky z-50 top-0 ">
@@ -34,11 +19,23 @@ export default function Header() {
                         alt="Logo"
                     />
                     </Link> 
+
                     <div className="flex items-center lg:order-2">
-                    
+                    <div className="mx-3">
+                        <Dropdown label="Categories" dismissOnClick={true}>
+                        <Link to="/sports"> <Dropdown.Item>Sports</Dropdown.Item></Link>
+                        <Link to="/business"> <Dropdown.Item>Business</Dropdown.Item></Link>
+                        <Link to="/technology"> <Dropdown.Item>Technology</Dropdown.Item></Link>
+                        <Link to="/science"> <Dropdown.Item>Science</Dropdown.Item></Link>
+                        <Link to="/health"> <Dropdown.Item>Health</Dropdown.Item></Link>
+                        <Link to="/entertainment"> <Dropdown.Item>Entertainment</Dropdown.Item></Link>
+                        <Link to="/general"> <Dropdown.Item>General</Dropdown.Item></Link>
+
+                            </Dropdown>
+                        </div>
                         <Link
                             to="#"
-                            className="text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:ring-orange-300 font-medium rounded-lg text-sm px-4 lg:px-5 py-2 lg:py-2.5 mr-2 focus:outline-none"
+                            className="text-white bg-blue-700 hover:bg-blue-800 hover:cursor-pointer focus:ring-4 focus:ring-orange-300 font-medium rounded-lg text-sm px-4 lg:px-5 py-2 lg:py-2.5 mr-2 focus:outline-none"
                         >
                             Log in
                         </Link>
@@ -76,6 +73,18 @@ export default function Header() {
                                     About
                                 </NavLink>
                             </li>
+                        
+                            <li>
+                                <NavLink
+                                to="/weather"
+                                    className={({isActive}) =>
+                                        `block py-2 pr-4 pl-3 duration-200 border-b border-gray-100 
+                                        ${isActive ? "text-blue-800" : "text-white-700" } lg:hover:bg-transparent lg:border-0 hover:text-blue-800 lg:p-0`
+                                    }
+                                >
+                                    Weather
+                                </NavLink>
+                            </li>
                             <li>
                                 <NavLink
                                 to="/contact"
@@ -84,31 +93,15 @@ export default function Header() {
                                         ${isActive ? "text-blue-800" : "text-white-700" } lg:hover:bg-transparent lg:border-0 hover:text-blue-800 lg:p-0`
                                     }
                                 >
-                                    Categories
-                                </NavLink>
-                            </li>
-                            <li>
-                                <NavLink
-                                to="/github"
-                                    className={({isActive}) =>
-                                        `block py-2 pr-4 pl-3 duration-200 border-b border-gray-100 
-                                        ${isActive ? "text-blue-800" : "text-white-700" } lg:hover:bg-transparent lg:border-0 hover:text-blue-800 lg:p-0`
-                                    }
-                                >
-                                    Github
+                                    Contact Us
                                 </NavLink>
                             </li>
                         </ul>
+
                     </div>
                 </div>
             </nav>
         </header>
-        <div className="inline-flex items-center py-2 px-2 lg:order-2 space-x-4 bg-blue-400 ">
-            <label htmlFor="country" className="text-white font-semibold">Country</label>
-            <div>
-            <Select options={options}  className="w-64" isSearchable={true} value={selectedCountry} onChange={handleChange} />
-            </div>
-        </div>
         </>
     );
 }

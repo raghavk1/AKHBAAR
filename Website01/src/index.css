@@ -1,3 +1,11 @@
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
+
+.layout-container{
+    background-color: aliceblue;
+}
+.Heading-text{
+    font-family: cursive;
+
+}
